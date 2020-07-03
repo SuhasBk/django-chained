@@ -1,0 +1,3 @@
+1) pip install django
+2) django-admin [command] startproject [option] <project_name> => creates a default project structure under the named directory.
+3) manage.py => manage django applications via this script
