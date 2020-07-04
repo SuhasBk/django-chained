@@ -1,1 +1,3 @@
 .vscode/
+pwd_generator_project/generator/__pycache__
+pwd_generator_project/pwd_generator/__pycache__
