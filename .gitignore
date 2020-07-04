@@ -1,3 +1,9 @@
 .vscode/
+
 pwd_generator_project/generator/__pycache__
 pwd_generator_project/pwd_generator/__pycache__
+
+personal_portfolio_project/blog/__pycache__
+personal_portfolio_project/portfolio/__pycache__
+personal_portfolio_project/personal_portfolio/__pycache__
+personal_portfolio_project\portfolio\migrations\__pycache__

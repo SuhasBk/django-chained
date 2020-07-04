@@ -1,3 +1,29 @@
-1) pip install django
-2) django-admin [command] startproject [option] <project_name> => creates a default project structure under the named directory.
-3) manage.py => manage django applications via this script
+*** Project and app setup steps ***
+
+1) "pip install django"
+2) "django-admin [command] startproject [option] <project_name>" => creates a default project structure under the named directory.
+3) "python manage.py <command>" => manage django applications via this script like adding new apps to a project, managing migrations etc. Ex: python manage.py startapp <app_name>
+4) After creating apps, append them to "INSTALLED_APPS" list defined in "settings.py"
+
+*** Database setup and models.py ORM configuration ***
+
+1) Create your class and inherit "models.Model" class provided by Django.
+2) To define properties of the class, use "fields" under "models" to specify datatypes of properties. Ex models.TextField (used for huge text, like paragraphs), models.DateField, models.URLField, models.CharField  (used for small texts like titles) etc.
+3) Migrations : chnages in projects need to be reflected in the database. Django's default apps also need to be migrated. Command : "python manage.py migrate". To check for changes only in "models.py" you need to use this command : "python manage.py makemigrations" => this command will essentially create a new model from your class.
+
+*** Django Admin account setup ***
+1) Create a superuser account with name and password : "python manage.py createsuperuser".
+2) If you want to change password : "python manage.py changepassword <name_of_account>".
+3) To control DB from /admin page, import your model from "models.py" in "admin.py". Then register that model using the following code : "admin.site.register(<model_class_name_that_was_imported>)". Now you can make changes to database from /admin page.
+
+*** Custom media folder setup ***
+settings.py:
+1) Create a new var called MEDIA_URL with value as your dir name. (this will be referenced by files in our apps)
+2) Create another var called MEDIA_ROOT with absolute path of MEDIA_URL using os.path.join() and BASE_DIR. (this will be referenced by django configuration)
+
+urls.py:
+1) Add a new static url route in ursl.py by importing settings object from django.conf and static() method from django.conf.urls.static. (this step is important and routes all references to static objects to MEDIA_URL path)
+
+*** Access your models in views.py ***
+1) import your model name from ".models"
+2) Access your model's objects by using "<model_name>.objects.all()" method.
