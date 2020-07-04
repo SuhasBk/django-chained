@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>I have written {{blogs.count}} blog{{blogs.count|pluralize}}</h1>
+    <div class="container">
+    {% for blog in blogs%}
+    <a href="{% url 'blog:details' blog.id%}"><h3>{{blog.title}}</h3></a>
+    <h5>{{blog.date}}</h5>
+    <p>{{blog.content}}</p>
+    {%endfor%}
+    </div>
+{% endblock %}

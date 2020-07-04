@@ -27,3 +27,8 @@ urls.py:
 *** Access your models in views.py ***
 1) import your model name from ".models"
 2) Access your model's objects by using "<model_name>.objects.all()" method.
+
+*** Note on static files ***
+1) You can have app specific static files.
+2) In order to share one global static file among different apps, create a STATIC_ROOT folder in settings.py and run this command : "python manage.py collectstatic". This command will create a project-global static folder and put all the app specific static files/folders under it.
+3) Now you can access all static files references by the PROJECT under global 'static' folder.

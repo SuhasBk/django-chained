@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-</head>
-<body>
-    <h1>Welcome to my portfolio website</h1>
+{% extends 'layout.html' %}
 
+{% block content %}
+<h1>Welcome to my portfolio website</h1>
+<hr>
+<div class="container">
     {% for project in projects %}
         <h2>{{ project.title }}</h2>
-        <h3>{{ project.description }}</h3>
-        <img src="{{ project.image.url }}" height=100 width=100>
+        <h6>{{ project.email }}</h6><br>
+        <h4>{{ project.description }}</h4>
         {% if project.url %}
-        <br><a href="{{project.url}}">Link</a>
-        {% endif %}
-    {% endfor %}
-</body>
-</html>
+        <a href="{{project.url}}" target="_blank">Check out my GitHub</a>
+        {% endif %}<br>
+        <img src="{{ project.image.url }}" height=10% width=50%>
+    {% endfor %}   
+</div>
+{% endblock %}
