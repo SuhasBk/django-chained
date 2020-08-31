@@ -1,6 +1,7 @@
 import os
 from threading import Thread
 from subprocess import run, PIPE
+from datetime import datetime
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -9,11 +10,12 @@ GLOBAL_ERROR_MESSAGE = ''
 class DeccanApi(APIView):
 
     def get(self, request):
-        edition = request.query_params.get('edition')
+        edition = request.query_params.get('edition', '0')
+        city = request.query_params.get('city', 'Bengaluru').replace(', ','-')
 
         def spinoff():
             global GLOBAL_ERROR_MESSAGE
-            op = run(['python3', 'dh_selenium.py', edition],stdout=PIPE, stderr=PIPE)
+            op = run(['python3', 'dh_selenium.py', edition, city], stdout=PIPE, stderr=PIPE)
             errors = op.stderr.decode('utf-8')
 
             if errors:
@@ -24,7 +26,7 @@ class DeccanApi(APIView):
         if not edition:
             return Response({
                 'response': {
-                    '/api/deccan?edition=': {
+                    '/api/deccan?edition=<edition_number>&city=<city_name>': {
                         0: 'Bangalore',
                         1: 'Davanagere',
                         2: 'Gadag, Haveri, Ballari',
@@ -39,8 +41,11 @@ class DeccanApi(APIView):
             }, 200)
         else:
             Thread(target=spinoff).start()
+            today_date = '-'.join(str(datetime.today().date()).split('-')[::-1])
+            file_name = f'{today_date}_{city}.pdf'
+
             return Response({
-                'response': f'epaper{edition}.pdf'
+                'response': file_name
             }, 200)
 
 

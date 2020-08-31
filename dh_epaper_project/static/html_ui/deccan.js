@@ -14,19 +14,21 @@ function getPaper() {
     </div>
     <div class="lds-dual-ring"></div>`;
 
-    fetch(`http://${window.location.host}/api?edition=${editionNumber}`)
+    fetch(`http://${window.location.host}/api?edition=${editionNumber}&city=${editionCity}`)
     .then(response => { 
         return response.json();
     })
     .then(data => {
         fileName = data['response'];
-        timer = setInterval(checkIfDone, 10000);
+        
+        checkIfExists()
+        timer = setInterval(checkIfExists, 10000);
     });
 
     console.log("waiting for API");
 }
 
-function checkIfDone() {
+function checkIfExists() {
     fetch(`http://${window.location.host}/api/find?file=${fileName}`)
     .then(response => {
         return response.json();
